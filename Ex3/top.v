@@ -16,7 +16,7 @@
 //           counter_out[7:0]
 //////////////////////////////////////////////////////////////////////////////////
 
-``timescale 1ns / 100ps
+`timescale 1ns / 100ps
 
 module monitor (
     input clk,

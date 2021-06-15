@@ -19,7 +19,6 @@ reg rst;
 reg change;
 reg on_off;
 reg err;
-reg [7:0] count;
 reg [7:0] count_prev;
 wire [7:0] count;
 
@@ -42,14 +41,14 @@ err = 0;
 count_prev = 0;
 count_prev = count;
 
-#(10*clk_period);
+#(10*clk_period)
        if (count != 0)
          begin $display ("Test Failed");
          err = 1;
 end
 
 rst = 0;
-#(10*clk_period);
+#(10*clk_period)
        if (count != count_prev)
          begin $display ("Test Failed");
          err = 1;
@@ -58,25 +57,27 @@ end
 
 end
 
+
 forever begin
-#clk_period;
+#clk_period
+
 counter_prev = on_off ? count_prev + 1: count_prev - 1;
-if (on_off == 1) & (count < count_prev)
+if (on_off == 1) && (count < count_prev)
 begin 
 err = 1;
 
 end
 
-if (count = count_prev)
+if (count == count_prev)
   begin $display ("Test Failed");
   err = 1;
 
 end
-
+end
 
 if  (count_prev == 10) 
 begin 
-  on_off =~on_off;
+  on_off =~ on_off;
 
 end
 
@@ -85,13 +86,13 @@ end
 //Check test
 initial begin 
 #500;
-if (err=0)
-$display("Test Passed");
+if (err==0)
+begin $display("Test Passed");
 $finish;
 end
 
 monitor top (
-.rst (on_off),
+.rst (rst),
 .change (change),
 .clk (clk),
 .on_off (on_off),
