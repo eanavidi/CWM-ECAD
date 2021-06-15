@@ -28,7 +28,7 @@ clk = 1'b0;
 
 
 forever begin
-#clk_period clk=~clk;
+#(clk_period/2) clk=~clk;
 end 
 
 end
@@ -39,13 +39,13 @@ change = 0;
 on_off = 1;
 err = 0;
 count_prev = 0;
-count_prev = count;
 
 #(10*clk_period)
        if (count != 0)
          begin $display ("Test Failed");
          err = 1;
 end
+
 
 rst = 0;
 #(10*clk_period)
@@ -55,15 +55,12 @@ rst = 0;
 
 end
 
-end
-
-
 forever begin
 #clk_period
 
-counter_prev = on_off ? count_prev + 1: count_prev - 1;
-if (on_off == 1) && (count < count_prev)
-begin 
+count_prev = on_off ? count_prev + 1: count_prev - 1;
+if (count < count_prev)
+begin $display ("Test Failed");
 err = 1;
 
 end
@@ -73,7 +70,6 @@ if (count == count_prev)
   err = 1;
 
 end
-end
 
 if  (count_prev == 10) 
 begin 
@@ -82,6 +78,7 @@ begin
 end
 
 end
+end
 
 //Check test
 initial begin 
@@ -89,6 +86,7 @@ initial begin
 if (err==0)
 begin $display("Test Passed");
 $finish;
+end
 end
 
 monitor top (
