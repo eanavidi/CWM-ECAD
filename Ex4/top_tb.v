@@ -27,19 +27,19 @@ forever
 end
 
 initial begin 
-clk = 0;
-rst = 1;
-button = 1;
+button = 0;
 err = 0;
-rst = 0;
-colour_pre = colour;
-end
+rst = 1;
+//colour_pre = colour;
+#(10*clk_period);
 
+rst =0;
+button = 1;
+#(10*clk_period);
 
 //Check if resets on colour 1
-initial
+
 #50
-begin
 if (rst && colour != 3'b001) 
 begin $display("Test Failed!");
 err = 1;
@@ -50,7 +50,6 @@ rst = 1;
 if ((colour == 0) || (colour == 3'b111)) 
 begin $display("Test Failed!");
 err = 1;
-end
 end
 
 colour_pre = colour;
@@ -70,13 +69,13 @@ err = 1;
 end 
 end
 
-
 //Check success 
 initial begin 
 #300
 if (err == 0)
 $display("Test Passed!");
 $finish;
+end 
 end 
 
 //Counter
