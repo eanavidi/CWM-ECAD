@@ -9,8 +9,7 @@
 
 `timescale 1ns / 100ps
 
-module top_tb(
-);
+module top_tb();
 
 parameter clk_period = 10;
 
@@ -30,6 +29,10 @@ end
 initial begin 
 temp = 5'b10001;
 err = 0;
+#clk_period
+temp = 5'b11000;
+#clk_period 
+temp = 5'b10011;
 
 forever begin 
 #clk_period 
@@ -51,12 +54,14 @@ end
 #clk_period
 temp <= temp + 5'b01;
 end
+end
 
 initial begin 
 #(10*clk_period)
 if (err == 0)
 begin $display("Test Passed!");
 $finish;
+end
 end
 
 ac top(
@@ -66,5 +71,4 @@ ac top(
 .cooling (cooling)
 );
 
-
-
+endmodule 
