@@ -33,18 +33,18 @@ button = 1;
 err = 0;
 rst = 0;
 colour_pre = colour;
-#50
 end
 
+
 //Check if resets on colour 1
-forever
+initial
 #50
 begin
 if (rst && colour != 3'b001) 
 begin $display("Test Failed!");
 err = 1;
 end
-end
+
 
 //Test failed if colour is 0 or 7 
 rst = 1;
@@ -67,6 +67,7 @@ if (button == 1 && colour != colour_pre + 1)
 begin $display("Test Failed!");
 err = 1;
 end 
+end
 
 //Check success 
 initial begin 
