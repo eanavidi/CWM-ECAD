@@ -45,17 +45,18 @@ begin $display("Test Failed!");
 err = 1;
 end
 
-
 //Test failed if colour is 0 or 7 
 rst = 1;
 if ((colour == 0) || (colour == 3'b111)) 
 begin $display("Test Failed!");
 err = 1;
 end
+end
 
 colour_pre = colour;
 rst = 0;
 
+forever begin
 //Check if colour constant with no button press
 if ((button == 0) && (colour_pre != colour))
 begin $display("Test Failed!");
@@ -68,6 +69,7 @@ begin $display("Test Failed!");
 err = 1;
 end 
 end
+
 
 //Check success 
 initial begin 
@@ -83,7 +85,7 @@ led top(
 .clk (clk),
 .rst (rst),
 .button (button),
-.colour (colour),
+.colour (colour)
 );
 
 endmodule 
