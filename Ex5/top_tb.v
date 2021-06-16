@@ -9,7 +9,7 @@
 
 `timescale 1ns / 100ps
 
-module toptb(
+module top_tb(
 );
 
 parameter clk_period = 10;
