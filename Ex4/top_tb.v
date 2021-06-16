@@ -12,15 +12,15 @@
 module top_tb(
 );
 
-parameter clk_period =10;
+parameter clk_period = 10;
 reg clk;
 reg rst;
 reg button;
 reg err;
-wire [2:0] colour;
 reg [2:0] colour_pre;
+wire [2:0] colour;
 
-initial beginn 
+initial begin 
 clk = 1'b0;
 forever 
 #(clk_period/2) clk=~clk;
@@ -31,25 +31,56 @@ clk = 0;
 rst = 1;
 button = 1;
 err = 0;
-#10
 rst = 0;
-
-forever begin 
 colour_pre = colour;
-#10
-if (rst && colour!=0) 
-begin $display("Test Failed")
+#50
+
+//Check if resets on colour 1
+forever
+#50
+begin
+if (rst && colour != 3'b001) 
+begin $display("Test Failed!");
 err = 1;
 end
 
-if (colour ==0 || colour == 3'b111) && rst!=0)
-begin $display("Test Failed")
+//Test failed if colour is 0 or 7 
+rst = 1;
+if ((colour == 0) || (colour == 3'b111)) 
+begin $display("Test Failed!");
 err =1;
 end
 
-else beginn 
-if (colour prev != 3'b110) 
-begin 
+colour_pre = colour;
+rst = 0;
 
-if ((button && colour!= colour_prev +1) || (button 
+//Check if colour constant with no button press
+if ((button == 0) && (colour_pre != colour))
+begin $display("Test Failed!");
+err = 1;
+end 
 
+//Check if button press shifts colour by 1 
+if (button == 1 && colour != colour_pre + 1)
+begin $display("Test Failed!");
+err = 1;
+end 
+
+//Check success 
+initial begin 
+#300
+if (err == 0)
+$display("Test Passed!");
+$finish;
+end 
+
+//Counter
+
+led top(
+.clk (clk),
+.rst (rst),
+.button (button),
+.colour (colour),
+);
+
+endmodule 
