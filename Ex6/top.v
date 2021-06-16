@@ -15,3 +15,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
+`timescale 1ns / 100ps
+
+module rgb(
+input clk,
+input enable;
+input [2:0] colour, 
+
+output [23:0] rgb
+);
+
+block_memory_gen_0 your_instance_name(
+.clka(clk).
+.ena(enable),
+.wea(1'b0),
+.addra(colour),
+.dina(24'd0),
+.douta(rgb)
+);
+
+endmodule 
+
