@@ -34,6 +34,7 @@ err = 0;
 rst = 0;
 colour_pre = colour;
 #50
+end
 
 //Check if resets on colour 1
 forever
@@ -43,12 +44,13 @@ if (rst && colour != 3'b001)
 begin $display("Test Failed!");
 err = 1;
 end
+end
 
 //Test failed if colour is 0 or 7 
 rst = 1;
 if ((colour == 0) || (colour == 3'b111)) 
 begin $display("Test Failed!");
-err =1;
+err = 1;
 end
 
 colour_pre = colour;
