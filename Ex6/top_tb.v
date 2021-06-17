@@ -40,11 +40,11 @@ end
 
 forever begin
 enable = 1;
-rgb_check = rgb;
+rgb_test = rgb;
 colour <= (colour + 3'd1);
 
-#10*clk_period
-if (rgb_check == rgb) 
+#(10*clk_period)
+if (rgb_test == rgb) 
 begin $display("Test Failed!");
 err = 1;
 end
@@ -53,15 +53,16 @@ end
 end 
 
 initial begin 
-#300
+#1000
 if (err == 0)
 begin $display("Test Passed!");
 $finish;
 end
+end
 
-rgb top(
+RGB top(
 .rgb(rgb),
-.clk(clk)
+.clk(clk),
 .enable(enable),
 .colour(colour)
 );
