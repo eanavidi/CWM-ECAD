@@ -21,24 +21,21 @@
 `timescale 1ns / 100ps
 
 module doorbell(
-    input A;
-    input B;
-
-    input A
-    input B
-    input sel;
+    input a,
+    input b,
+    input sel,
     output reg out
     );
-    
+  
 
-begin
+always @ (*) begin
     #5;
    
-       if (sel==0)
-           out = A;
+       if (sel)
+           out = b;
 
        else
-           out = B;
+           out = a;
     
 end 
 
