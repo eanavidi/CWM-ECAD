@@ -50,12 +50,28 @@ begin $display("Test Failed!");
 err = 1;
 end
 
-#(10*clk_period)
-forever begin
-button = 1;
-light_prev = light;
+//test fail 000, 111
+if ((light == 24'h0) | (light == 24'h7))
+begin $display("Test Failed!");
+err = 1;
+end
 
-#clk_period
+//if (sel == 0)
+//light <= 24'hFFFFFF;
+
+#(10*clk_period)
+sel = 0; 
+
+
+#(10*clk_period)
+sel = 1;
+
+forever begin
+
+light_prev = light;
+button = 1;
+
+#(10*clk_period)
 //check if button works 
 if (light == light_prev) 
 begin $display("Test Failed!");
