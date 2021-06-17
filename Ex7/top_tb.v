@@ -12,9 +12,6 @@
 module top_tb(
 );
 
-module top_tb(
-);
-
 parameter clk_period = 10;
 reg clk;
 reg rst;
@@ -75,7 +72,7 @@ $display("Test Passed!");
 $finish;
 end 
 
-lights_select(
+lights_select top(
 .clk (clk),
 .rst (rst),
 .sel (sel),
