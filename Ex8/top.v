@@ -16,7 +16,14 @@
 module top(
     input clk_p,
     input clk_n,
-     //Todo: add all other ports besides clk_n and clk_p 
+    input rst_n,
+    input temperature_0,
+    input temperature_1,
+    input temperature_2,
+    input temperature_3,
+    input temperature_4
+    output heating,
+    output cooling
    );
     
 
@@ -36,6 +43,11 @@ module top(
 	.O  (clk)
       );
 
-//Add logic here
+ac top(
+.clk (clk)
+.temp ({temperature_0, temperature_1, temperature_2, temperature_3, temperature_4}),
+.heating (heating),
+.cooling (cooling)
+);
 
 endmodule
