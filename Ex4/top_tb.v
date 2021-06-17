@@ -68,6 +68,7 @@ begin $display("Test Failed!");
 err = 1;
 end 
 end
+end
 
 //Check success 
 initial begin 
@@ -76,7 +77,7 @@ if (err == 0)
 $display("Test Passed!");
 $finish;
 end 
-end 
+
 
 //Counter
 
