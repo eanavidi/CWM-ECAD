@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top(
+module eight(
     input clk_p,
     input clk_n,
     input rst_n,
@@ -21,7 +21,7 @@ module top(
     input temperature_1,
     input temperature_2,
     input temperature_3,
-    input temperature_4
+    input temperature_4,
     output heating,
     output cooling
    );
