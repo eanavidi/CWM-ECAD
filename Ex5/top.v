@@ -13,10 +13,9 @@
 //           heating, cooling
 //////////////////////////////////////////////////////////////////////////////////
 
-
 `timescale 1ns / 100ps
 
-// 22 = 10110, 20 = 10100, 18 = 10010
+
 module ac(
 input clk,
 input[4:0] temp,
@@ -26,33 +25,36 @@ output cooling
 
 reg [1:0] state;
 
-
-// idle: 00, cooling: 01, heating: 10
 always @(posedge clk) begin 
-if (state ==2'b00) begin //idle 
-//turn heating on 
-state = (temp <= 5'b10010)? 2'b10: 2'b00; 
-// turn cooling on
-state = (temp >= 5'b10110)? 2'b01: 2'b00;
+
+// 22 = 10110, 20 = 10100, 18 = 10010
+//idle: 00, cooling: 01, heating: 10
+
+if (temp >= 22) begin
+state = 2'b01; //cooling 
+end
+
+else
+if (temp <= 18) begin
+state = 2'b10; //heating 
+end
+ 
+else 
+if ((temp > 18) | (temp < 22)) begin
+state = 2'b00; //idle
+end
+
+if (temp > 20) begin 
+state = 2'b01; //cooling
 end 
-
-else 
-if (state == 2'b01) begin //cooling
-// turn cooling off 
-state = ((temp >= 5'b10010) && (temp <= 5'b10110))? 2'b00: 2'b01;
-end
-
-else 
-if (state == 2'b10) begin //heating
-// turn heating off
-state = (temp >=5'b10100) ? 2'b00: 2'b10;
-end
 
 else 
 state = 2'b00;
 
 end
+
 assign heating = (state == 2'b10);
 assign cooling = (state == 2'b01);
 
 endmodule
+
