@@ -32,8 +32,9 @@ button = 0;
 err = 0;
 sel = 0;
 rst = 1;
+light_prev = 0;
 
-#(10*clk_period)
+#(20*clk_period)
 //check if reset works
 if (light != 24'h000000) 
 begin $display("Test Failed!");
@@ -82,7 +83,7 @@ end
 
 //Check success 
 initial begin 
-#300
+#1500
 if (err == 0)
 $display("Test Passed!");
 $finish;

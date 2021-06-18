@@ -21,10 +21,10 @@
 `timescale 1ns / 100ps
 
 module MUX(
-    input a,
-    input b,
+    input [24:0] a,
+    input [24:0] b,
     input sel,
-    output reg out
+    output reg [24:0] out
     );
   
 
